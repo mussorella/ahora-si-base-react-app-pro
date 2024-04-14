@@ -1,8 +1,8 @@
 import styles from "../styles/styles.module.css";
 
-import {  createContext } from "react";
+import {  ReactElement, createContext, CSSProperties } from "react";
 import { useProduct } from "../hooks/useProduct";
-import { ProductCardProps, ProductContextProps } from '../interfaces/interfaces';
+import { Product, ProductContextProps } from '../interfaces/interfaces';
 
 
 
@@ -12,10 +12,15 @@ export const ProductContext=createContext({} as ProductContextProps);
 const {Provider}=ProductContext;//el provider es el proveedor de info
 
 
+export interface Props{
+    product: Product;//aca obliga que el proucto sea enviado como tal
+    children?: ReactElement| ReactElement[];//es un elemento de react
+    className?: string
+    style?: React.CSSProperties
+  }
 
 
-
-export const ProductCard = ({children,product}: ProductCardProps) => {
+export const ProductCard = ({children,product, className, style}: Props) => {
  
     const {counter,increaseBy}= useProduct()
 return(//pongo el provider aca para que exporte los datos 
@@ -25,7 +30,8 @@ return(//pongo el provider aca para que exporte los datos
   product
  }}>
 
-    <div className={styles.productCard}>
+    <div className={`${styles.productCard}  ${className}`}
+    style={style}>
         {children}
         
     </div>

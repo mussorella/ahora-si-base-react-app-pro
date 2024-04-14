@@ -1,9 +1,10 @@
-import { ReactElement } from "react";
 
-export interface ProductCardProps{
-    product: Product;//aca obliga que el proucto sea enviado como tal
-    children?: ReactElement| ReactElement[];//es un elemento de react
-  }
+import { Props as ProductButtonsProps } from "../components/ProductButtons";
+import { Props as ProductCardProps } from "../components/ProductCard";
+import { Props as ProductImageProps } from "../components/ProductImage";
+import { Props as ProductTitleProps } from "../components/ProductTitle";
+
+
   
   export interface Product{//asi obligo q me tiene que mandar un producto con el id y titulo y como debe ser
     id: string;
@@ -19,8 +20,8 @@ export interface ProductCardProps{
 
 
   export interface ProductCardHOCProps{
-    ({ children, product }: ProductCardProps) : JSX.Element,
-     Title: ({ title }: {title?: string }) => JSX.Element,
-     Image: ({ img }: {img?: string }) => JSX.Element,
-     Buttons: () => JSX.Element
+    ({ children, product }: ProductCardProps ) : JSX.Element,
+     Title: (Props: ProductTitleProps) => JSX.Element,
+     Image: (Props: ProductImageProps) => JSX.Element,
+     Buttons: (Props:ProductButtonsProps) => JSX.Element
   }
