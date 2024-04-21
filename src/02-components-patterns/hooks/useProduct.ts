@@ -1,5 +1,5 @@
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect,  useState } from "react"
 import { Product, onChangeArgs } from '../interfaces/interfaces';
 
 
@@ -13,13 +13,9 @@ export const useProduct =({onChange, product, value=0}:useProductArgs)=>{
 
     const [counter, setCounter] = useState(value)//el value hace que se ponga en el sopping cart en chiquito el 1
  
-    const isControlled = useRef(!!onChange)//vemos si el componente esta siendo controlado por una funcion con este
+    
  //se pone doble negacion para que si es false de tru el use ref
     const increaseBy=(value:number)=>{
-    
-        if(isControlled.current){//si el numero del carrito esta siendo controlado
-            return onChange!({count:value, product})//devuelve el onchange con el valor de numero del value y el producto
-        }//el ! despues del onchange es la confirmacion para typescript asi no jode
     
         const newValue=Math.max(counter+value, 0)
     
