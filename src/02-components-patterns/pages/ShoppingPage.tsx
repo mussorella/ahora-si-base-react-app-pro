@@ -3,10 +3,10 @@ import { ProductButtons, ProductImage,ProductCard,ProductTitle } from "../compon
 
 import '../styles/custom-styles.css'
 
-import { useShoppingCart } from '../hooks/useShoppingCart';
+
 import { products } from "../data/products";
 
-
+const product=products[0]
 
 
 
@@ -14,7 +14,7 @@ import { products } from "../data/products";
 
 export const ShoppingPage = () => {
   
-  const {shoppingCart,onProductCountChange}=useShoppingCart()
+  
   
   
   return (
@@ -22,72 +22,45 @@ export const ShoppingPage = () => {
         <h1>Shopping Store</h1>
         
         <hr />
-        
-        <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-          flexWrap: 'wrap'
-        }}>
-          
-        {products.map(product=>(
 
           <ProductCard 
           product={product}
           className="bg-dark text-white"
           key={product.id}
-          onChange={onProductCountChange}
-          value={shoppingCart[product.id]?.count || 0}//en el value del padre hacemos que se sincronice los valores de ambos, el shopping cart y el producto padre
-          
-          >{/*tenemos que tratar que este product padre le mande toda la data a los hijos, y no que la agreguemos manualmente aca */}
+          initialValues={{
+            count:4,
+            maxCount:10,
+          }}
+          >
 
-          <ProductImage className="custom-image"/>
-          <ProductTitle className="text-bold"/>
-          <ProductButtons className="custom-buttons"/>
+
+            {
+              ({reset, isMaxCountReached,maxCount,increaseBy,count })=>(
+
+                <>
+                <ProductImage className="custom-image"/>
+                <ProductTitle className="text-bold"/>
+                <ProductButtons className="custom-buttons"/>
+                
+                <button onClick={reset}>Reset</button>
+                <button onClick={()=>increaseBy(-2)}>-2</button>
+                {
+                  (!isMaxCountReached && <button onClick={()=>increaseBy(+2)}>+2</button>)
+                }
+                
+                <span> {maxCount}</span>
+                
+                </>
+
+              )
+            }
 
           </ProductCard>
-
-        ))}
-
-
-            
-
-            
-          </div>
-          
-        <div className="shopping-cart">
-
-          {
-            Object.entries(shoppingCart).map( ([key,product]) => (   //el Object.entries permite que un objeto le ponga el map, sino no podria 
-            
-             //usamos el map y metemos la tarjeta adentro para poner el shopping carty cuando toquemos 1 aparezca en el mini carrito
-                  <ProductCard 
-                    key={key}  
-                    product={product}
-                    className="bg-dark text-white"
-                    style={{width: '100px'}}
-                    value={product.count}
-                    onChange={onProductCountChange}
-                    >{/*tenemos que tratar que este product padre le mande toda la data a los hijos, y no que la agreguemos manualmente aca */}
-          
-                    <ProductImage className="custom-image"/>
-                    
-                    <ProductButtons className="custom-buttons"
-                    style={{display:'flex',
-                      justifyContent:'center'
-                    }}/>
-          
-                    </ProductCard>
-              ) )
-          
-          }
-
-        
-          
-
-        </div>
-
-
 
     </div>
   )
 }
+//formik tarjeta de producto
+//initializer es una prop que manda valores iniciales
+//luego de el initializer viene una funcion, una desestructuracion de argumentos
+//esta funcion es la misma que renderiza el formulario

@@ -14,6 +14,7 @@ import { Props as ProductTitleProps } from "../components/ProductTitle";
   
   export interface ProductContextProps{//como debe lucir el provider
   counter: number;//los datos los saque del value del provider de abajo
+  maxCount?:number;
   increaseBy: (value:number)=>void;
   product:Product
   }
@@ -33,4 +34,19 @@ import { Props as ProductTitleProps } from "../components/ProductTitle";
   export interface ProductInCart extends Product{//esta interfaz define que el producto lleve un contador
     count: number
   
+  }
+
+  export interface InitialValues{//para los valores de initializer
+    count?:number;
+    maxCount?:number;
+  }
+
+  export interface ProductCardHandlers{
+    count:number;
+    isMaxCountReached: boolean;
+    maxCount?:number;
+    product: Product;
+
+    increaseBy:(value:number)=>void;
+    reset:()=>void
   }
