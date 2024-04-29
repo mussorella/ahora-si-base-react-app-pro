@@ -1,7 +1,7 @@
 import { ReactElement, useContext } from "react"
 import { ProductContext } from "./ProductCard"
 import styles from "../styles/styles.module.css";
-import '../styles/custom-styles.css'
+
 
 
 export interface Props{
